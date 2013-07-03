@@ -64,7 +64,7 @@ module Tenacity
 
       def prune_associate_ids(association, associate_ids)
         if association.limit || association.offset
-          sorted_ids = associate_ids.sort { |a,b| a <=> b }
+          sorted_ids = associate_ids.sort { |a, b| a <=> b }
 
           limit = association.limit || associate_ids.size
           offset = association.offset || 0
@@ -137,7 +137,7 @@ module Tenacity
         def destroy_orphaned_associates(association, old_associates, associates)
           if association.dependent == :destroy || association.dependent == :delete_all
             issue_callbacks = (association.dependent == :destroy)
-            (old_associates.map{|a| a.id} - associates.map{|a| a.id}).each do |associate_id|
+            (old_associates.map { |a| a.id } - associates.map { |a| a.id }).each do |associate_id|
               association.associate_class._t_delete([_t_serialize(associate_id)], issue_callbacks)
             end
           end

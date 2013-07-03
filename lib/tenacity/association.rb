@@ -124,13 +124,13 @@ module Tenacity
 
       until from_root.empty?
         begin
-          return (from_root + path).inject(Object) { |ns,name| ns.const_get(name) }
+          return (from_root + path).inject(Object) { |ns, name| ns.const_get(name) }
         rescue NameError
           from_root.delete_at(-1)
         end
       end
 
-      path.inject(Object) { |ns,name| ns.const_get(name) }
+      path.inject(Object) { |ns, name| ns.const_get(name) }
     end
 
     def unqualified_class_name(clazz)

@@ -103,7 +103,7 @@ class SequelTest < Test::Unit::TestCase
       object = SequelObject.create
       assert object.save
     end
-    
+
     should "not save the object if it is not dirty" do
       object = SequelObject.create
       SequelObject.any_instance.stubs(:save).raises(RuntimeError.new("should not have called this"))
@@ -114,7 +114,9 @@ class SequelTest < Test::Unit::TestCase
       assert_equal Integer, SequelObject._t_id_type
       assert_equal String, SequelObjectWithStringId._t_id_type
 
-      class SequelObjectWithNoTable < Sequel::Model; include Tenacity; end
+      class SequelObjectWithNoTable < Sequel::Model;
+        include Tenacity;
+      end
       assert_equal Integer, SequelObjectWithNoTable._t_id_type
     end
   end

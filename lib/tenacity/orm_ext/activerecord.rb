@@ -50,10 +50,10 @@ module Tenacity
 
         def _t_id_type
           @_t_id_type_clazz ||= begin
-                                  Kernel.const_get(columns.find{ |x| x.primary }.type.to_s.capitalize)
-                                rescue
-                                  Integer
-                                end
+            Kernel.const_get(columns.find { |x| x.primary }.type.to_s.capitalize)
+          rescue
+            Integer
+          end
         end
 
         def _t_find(id)

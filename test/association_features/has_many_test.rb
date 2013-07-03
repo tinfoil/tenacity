@@ -107,13 +107,13 @@ class HasManyTest < Test::Unit::TestCase
       car.mongo_mapper_wheels = [wheel_1, wheel_2, wheel_3, wheel_4, wheel_5, wheel_6, wheel_7, wheel_8]
       car.save
 
-      sorted_wheels = car.mongo_mapper_wheels.sort { |a,b| a.id.to_s <=> b.id.to_s }
+      sorted_wheels = car.mongo_mapper_wheels.sort { |a, b| a.id.to_s <=> b.id.to_s }
       sorted_wheel_ids = sorted_wheels.map { |wheel| wheel.id.to_s }
 
       assert_set_equal [sorted_wheels[0], sorted_wheels[1], sorted_wheels[2], sorted_wheels[3], sorted_wheels[4]],
-        ActiveRecordCar.find(car.id).mongo_mapper_wheels
+                       ActiveRecordCar.find(car.id).mongo_mapper_wheels
       assert_set_equal [sorted_wheel_ids[0], sorted_wheel_ids[1], sorted_wheel_ids[2], sorted_wheel_ids[3], sorted_wheel_ids[4]],
-        ActiveRecordCar.find(car.id).mongo_mapper_wheel_ids
+                       ActiveRecordCar.find(car.id).mongo_mapper_wheel_ids
     end
 
     should "skip over the first group of results, as specified by the :offset option" do
@@ -130,13 +130,13 @@ class HasManyTest < Test::Unit::TestCase
       car.mongo_mapper_windows = [window_1, window_2, window_3, window_4, window_5, window_6, window_7, window_8, window_9]
       car.save
 
-      sorted_windows = car.mongo_mapper_windows.sort { |a,b| a.id.to_s <=> b.id.to_s }
+      sorted_windows = car.mongo_mapper_windows.sort { |a, b| a.id.to_s <=> b.id.to_s }
       sorted_window_ids = sorted_windows.map { |window| window.id.to_s }
 
       assert_set_equal [sorted_windows[3], sorted_windows[4], sorted_windows[5], sorted_windows[6], sorted_windows[7]],
-        ActiveRecordCar.find(car.id).mongo_mapper_windows
+                       ActiveRecordCar.find(car.id).mongo_mapper_windows
       assert_set_equal [sorted_window_ids[3], sorted_window_ids[4], sorted_window_ids[5], sorted_window_ids[6], sorted_window_ids[7]],
-        ActiveRecordCar.find(car.id).mongo_mapper_window_ids
+                       ActiveRecordCar.find(car.id).mongo_mapper_window_ids
     end
 
     should "be able to store objects via their polymorphic interface" do
@@ -149,7 +149,7 @@ class HasManyTest < Test::Unit::TestCase
 
       components = ActiveRecordEngine.find(engine.id).diagnosable
       assert_set_equal [circuit_board_1, circuit_board_2, circuit_board_3], components
-      assert_set_equal ['ActiveRecordEngine', 'ActiveRecordEngine', 'ActiveRecordEngine'], components.map {|c| c.diagnosable_type}
+      assert_set_equal ['ActiveRecordEngine', 'ActiveRecordEngine', 'ActiveRecordEngine'], components.map { |c| c.diagnosable_type }
     end
 
     should "not lose the associated objects when the main object is updated" do

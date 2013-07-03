@@ -71,7 +71,7 @@ module Tenacity
           if respond_to?(:where)
             where(property => _t_serialize(id)).first
           else
-            first(:conditions => { property => _t_serialize(id) })
+            first(:conditions => {property => _t_serialize(id)})
           end
         end
 
@@ -79,7 +79,7 @@ module Tenacity
           if respond_to?(:where)
             where(property => _t_serialize(id)).all
           else
-            all(:conditions => { property => _t_serialize(id) })
+            all(:conditions => {property => _t_serialize(id)})
           end
         end
 

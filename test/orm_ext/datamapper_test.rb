@@ -104,7 +104,9 @@ class DataMapperTest < Test::Unit::TestCase
       assert_equal Integer, DataMapperObject._t_id_type
       assert_equal String, DataMapperObjectWithStringId._t_id_type
 
-      class DataMapperObjectWithNoTable; include DataMapper::Resource; include Tenacity; end
+      class DataMapperObjectWithNoTable;
+        include DataMapper::Resource; include Tenacity;
+      end
       assert_equal Integer, DataMapperObjectWithNoTable._t_id_type
     end
 

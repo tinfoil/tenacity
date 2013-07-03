@@ -147,7 +147,7 @@ module Tenacity
           unless self.id.nil?
             new_doc = database.get(self.id)
             self.clear
-            new_doc.each { |k,v| self[k] = new_doc[k] }
+            new_doc.each { |k, v| self[k] = new_doc[k] }
           end
           self
         end

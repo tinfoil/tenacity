@@ -104,7 +104,7 @@ require_mongoid do
         object = MongoidObject.create
         assert object.save
       end
-      
+
       should "not save the object if it is not dirty" do
         object = MongoidObject.create
         MongoidObject.any_instance.stubs(:save).raises(RuntimeError.new("should not have called this"))

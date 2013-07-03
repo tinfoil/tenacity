@@ -3,8 +3,8 @@ require 'dm-migrations'
 require 'dm-migrations/migration_runner'
 
 DataMapper.setup(:default, {
-  :adapter  => 'sqlite3',
-  :database => ':memory:'})  
+    :adapter => 'sqlite3',
+    :database => ':memory:'})
 
 migrate_up!
 
