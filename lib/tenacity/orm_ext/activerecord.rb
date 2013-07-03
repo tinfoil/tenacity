@@ -62,7 +62,7 @@ module Tenacity
 
         def _t_find_bulk(ids)
           return [] if ids.nil? || ids.empty?
-          find(:all, :conditions => ["id in (?)", _t_serialize_ids(ids)])
+          find(:all, :conditions => ['id in (?)', _t_serialize_ids(ids)])
         end
 
         def _t_find_first_by_associate(property, id)
@@ -97,9 +97,9 @@ module Tenacity
 
         def _t_delete(ids, run_callbacks=true)
           if run_callbacks
-            destroy_all(["id in (?)", _t_serialize_ids(ids)])
+            destroy_all(['id in (?)', _t_serialize_ids(ids)])
           else
-            delete_all(["id in (?)", _t_serialize_ids(ids)])
+            delete_all(['id in (?)', _t_serialize_ids(ids)])
           end
         end
       end

@@ -2,7 +2,7 @@ module Tenacity
   module InstanceMethods #:nodoc:
 
     def _t_ivar_name(association)
-      "@_t_" + association.name.to_s
+      '@_t_' + association.name.to_s
     end
 
     def _t_save_autosave_associations

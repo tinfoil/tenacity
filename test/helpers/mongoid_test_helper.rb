@@ -8,8 +8,7 @@ end
 
 begin
   require 'mongoid'
-  Mongoid.load!(File.expand_path("../../../config/mongoid.yml", __FILE__), :test)
+  Mongoid.load!(File.expand_path('../../../config/mongoid.yml', __FILE__), :test)
 rescue LoadError
-  puts "WARNING:  Mongoid could not be loaded.  Skipping tests."
+  puts 'WARNING:  Mongoid could not be loaded.  Skipping tests.'
 end
-

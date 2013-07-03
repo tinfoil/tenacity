@@ -1,10 +1,11 @@
 require 'rubygems'
 require 'bundler'
+require 'debugger'
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
   $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
+  $stderr.puts 'Run `bundle install` to install missing gems'
   exit e.status_code
 end
 
@@ -17,17 +18,9 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'tenacity'
 
 require File.join(File.dirname(__FILE__), 'helpers', 'active_record_test_helper')
-require File.join(File.dirname(__FILE__), 'helpers', 'couch_rest_test_helper')
-require File.join(File.dirname(__FILE__), 'helpers', 'data_mapper_test_helper')
-require File.join(File.dirname(__FILE__), 'helpers', 'mongo_mapper_test_helper')
 require File.join(File.dirname(__FILE__), 'helpers', 'mongoid_test_helper')
-require File.join(File.dirname(__FILE__), 'helpers', 'ripple_test_helper')
-require File.join(File.dirname(__FILE__), 'helpers', 'sequel_test_helper')
-require File.join(File.dirname(__FILE__), 'helpers', 'toystore_test_helper')
 
 Dir[File.join(File.dirname(__FILE__), 'fixtures', '*.rb')].each { |file| autoload(file[file.rindex('/') + 1..-4].camelcase, file) }
-
-migrate_data_mapper_tables
 
 def setup_fixtures
   Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', '*.rb')).each do |filename|
@@ -40,13 +33,6 @@ def setup_fixtures
         clazz.db["delete from #{clazz.table_name}"].delete
       elsif clazz.respond_to?(:destroy!)
         clazz.destroy!
-      elsif filename =~ /\/toystore/
-        # No way to easily delete toystore instances per class, so delete them all.
-        Mongo::Connection.new.db('tenacity_test')['toystore'].remove
-      elsif filename =~ /\/couch_rest/
-        # CouchDB fixtures are destroyed with the database
-      elsif filename =~ /\/ripple/
-        # Ripple fixtures are destroyed explicitly in setup_ripple_fixtures
       else
         puts "WARNING: Don't know how to clear fixtures for #{clazz}"
       end
@@ -55,37 +41,16 @@ def setup_fixtures
   end
 end
 
-def setup_couchdb_fixtures
-  COUCH_DB.recreate! rescue nil
-end
-
-def setup_ripple_fixtures
-  require_ripple do
-    bucket_names = ripple_classes.map { |clazz| clazz.bucket.name }
-
-    # XXX: This is --INCREDIBLY-- slow, but I cannot find a better/faster way of doing it
-    Ripple.client.buckets.each do |bucket|
-      if bucket_names.include?(bucket.name) || bucket.name =~ /^tenacity_test_/
-        bucket.keys { |keys| keys.each { |k| bucket.delete(k) } }
-      end
-    end
-  end
-end
-
 def setup_fixtures_for(source, target)
   setup_fixtures
-  setup_couchdb_fixtures if source == :couch_rest || target == :couch_rest
-  setup_ripple_fixtures if source == :ripple || target == :ripple
 end
 
 def orm_extensions
   if ENV['QUICK'] == 'true'
-    extensions = [:active_record, :mongo_mapper]
+    extensions = [:active_record]
   else
-    extensions = [:active_record, :couch_rest, :data_mapper, :mongo_mapper, :sequel]
+    extensions = [:active_record]
     require_mongoid { extensions << :mongoid }
-    require_ripple { extensions << :ripple } if ENV['LONG'] == 'true'
-    require_toystore { extensions << :toystore }
     extensions
   end
 end
@@ -100,11 +65,11 @@ end
 
 def class_for_extension(extension, type=nil)
   if type.nil?
-    class_name = extension.to_s.camelcase + "Object"
+    class_name = extension.to_s.camelcase + 'Object'
   elsif type == :t_belongs_to || type == :t_has_one
-    class_name = extension.to_s.camelcase + "HasOneTarget"
+    class_name = extension.to_s.camelcase + 'HasOneTarget'
   elsif type == :t_has_many
-    class_name = extension.to_s.camelcase + "HasManyTarget"
+    class_name = extension.to_s.camelcase + 'HasManyTarget'
   end
   Kernel.const_get(class_name)
 end
@@ -138,21 +103,9 @@ def assert_set_equal(expecteds, actuals, message = nil)
 end
 
 def to_comparison_format(object)
-  if object.is_a?(CouchRest::Model::Base)
-    object.to_hash.reject { |k, v| v.nil? }
-  else
-    object
-  end
+  object
 end
 
 def serialize_id(object)
   object.class._t_serialize(object.id)
 end
-
-def ripple_classes
-  Dir.glob(File.join(File.dirname(__FILE__), 'fixtures', 'ripple_*.rb')).map do |filename|
-    filename =~ /.*\/(.*)\.rb/
-    Kernel.const_get($1.camelcase)
-  end
-end
-

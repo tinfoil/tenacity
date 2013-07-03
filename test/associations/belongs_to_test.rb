@@ -16,30 +16,30 @@ class BelongsToTest < Test::Unit::TestCase
         @foreign_key_id = foreign_key_id_for(source, :t_belongs_to)
       end
 
-      should "be able to fetch the id of the associated object" do
+      should 'be able to fetch the id of the associated object' do
         @target.send("#{@foreign_key_id}=", serialize_id(@source))
         @target.save
         assert_equal serialize_id(@source), @target_class._t_find(serialize_id(@target)).send(@foreign_key_id)
       end
 
-      should "be able to load the associated object" do
+      should 'be able to load the associated object' do
         @target.send("#{@foreign_key}=", @source)
         @target.save
         assert_equal serialize_id(@source), @target_class._t_find(serialize_id(@target)).send(@foreign_key_id)
         assert_equal @source, @target_class._t_find(serialize_id(@target)).send(@foreign_key)
       end
 
-      should "be be able to load the associated object if all we have is the id" do
+      should 'be be able to load the associated object if all we have is the id' do
         @target.send("#{@foreign_key_id}=", serialize_id(@source))
         @target.save
         assert_equal @source, @target_class._t_find(serialize_id(@target)).send(@foreign_key)
       end
 
-      should "return nil if no association is set" do
+      should 'return nil if no association is set' do
         assert_nil @target_class._t_find(serialize_id(@target)).send(@foreign_key)
       end
 
-      should "be able to destroy the associated object when the source object is destroyed" do
+      should 'be able to destroy the associated object when the source object is destroyed' do
         Tenacity::Association.any_instance.stubs(:dependent).returns(:destroy)
         @target.send("#{@foreign_key}=", @source)
         @target.save
@@ -48,7 +48,7 @@ class BelongsToTest < Test::Unit::TestCase
         assert_nil @target_class._t_find(serialize_id(@target))
       end
 
-      should "be able to delete the associated object when the source object is destroyed" do
+      should 'be able to delete the associated object when the source object is destroyed' do
         Tenacity::Association.any_instance.stubs(:dependent).returns(:delete)
         @target.send("#{@foreign_key}=", @source)
         @target.save
@@ -57,13 +57,13 @@ class BelongsToTest < Test::Unit::TestCase
         assert_nil @target_class._t_find(serialize_id(@target))
       end
 
-      context "with a polymorphic association" do
+      context 'with a polymorphic association' do
         setup do
           @foreign_key = "#{source}_has_one_target_testable"
           @polymorphic_type = "#{source}_has_one_target_testable_type"
         end
 
-        should "be able to create a polymorphic association" do
+        should 'be able to create a polymorphic association' do
           @target.send("#{@foreign_key}=", @source)
           @target.save
 

@@ -103,7 +103,7 @@ module Tenacity
 
           old_associates = get_current_associates(record, association)
 
-          # Some ORM libraries (CouchRest, ActiveRecord, etc) return a proxy in
+          # Some ORM libraries (ActiveRecord, etc) return a proxy in
           # place of the associated objects.  The actual associated objects
           # will be fetched the first time they are needed.  So, force them to
           # be fetched here, before we clear them out in the database.

@@ -4,7 +4,7 @@ module Tenacity
     instance_methods.each { |m| undef_method m unless m =~ /(^__|^nil\?$|^send$|proxy_|^object_id$)/ }
 
     def initialize(target, association)
-      raise "Cannot create a Tenacity::AssociateProxy with a nil target" if target.nil?
+      raise 'Cannot create a Tenacity::AssociateProxy with a nil target' if target.nil?
       @target = target
       @association = association
       @marked_for_destruction = false

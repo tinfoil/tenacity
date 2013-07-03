@@ -50,7 +50,7 @@ module Tenacity
         end
 
         def _t_find(id)
-          (id.nil? || id.to_s.strip == "") ? nil : find(_t_serialize(id))
+          (id.nil? || id.to_s.strip == '') ? nil : find(_t_serialize(id))
         rescue ::Mongoid::Errors::DocumentNotFound
           nil
         end

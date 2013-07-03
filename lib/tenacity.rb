@@ -11,13 +11,7 @@ require File.join(File.dirname(__FILE__), 'tenacity', 'associations', 'has_many'
 require File.join(File.dirname(__FILE__), 'tenacity', 'associations', 'has_one')
 require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'helpers')
 require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'activerecord')
-require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'couchrest')
-require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'datamapper')
-require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'mongo_mapper')
 require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'mongoid')
-require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'ripple')
-require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'sequel')
-require File.join(File.dirname(__FILE__), 'tenacity', 'orm_ext', 'toystore')
 
 module Tenacity #:nodoc:
   include InstanceMethods
@@ -28,13 +22,7 @@ module Tenacity #:nodoc:
 
   def self.included(model)
     OrmExt::ActiveRecord.setup(model)
-    OrmExt::CouchRest.setup(model)
-    OrmExt::DataMapper.setup(model)
-    OrmExt::MongoMapper.setup(model)
     OrmExt::Mongoid.setup(model)
-    OrmExt::Ripple.setup(model)
-    OrmExt::Sequel.setup(model)
-    OrmExt::Toystore.setup(model)
 
     raise "Tenacity does not support the database client used by #{model}" unless model.respond_to?(:_t_find)
     model.extend(ClassMethods)
