@@ -28,5 +28,8 @@ module Tenacity #:nodoc:
     model.extend(ClassMethods)
     model._t_initialize_tenacity
   end
-end
 
+  def self.root
+    File.expand_path '../..', __FILE__
+  end
+end

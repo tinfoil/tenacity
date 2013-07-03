@@ -20,8 +20,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'bundler', '>= 1.0.0'
   s.add_development_dependency 'rake', '>= 0.8.7'
-  s.add_development_dependency 'shoulda', '~> 2.11.3'
-  s.add_development_dependency 'mocha', '~> 0.9.10'
   s.add_development_dependency 'yard', '~> 0.6.4'
 
   # Relational DBs
@@ -32,6 +30,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mongo', '~> 1.6.2'
   s.add_development_dependency 'bson_ext', '~> 1.6.2'
   s.add_development_dependency 'mongoid', '~> 3.0.0'
+
+  # Testing
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'factory_girl', '~> 4.0'
+  s.add_development_dependency 'database_cleaner'
 
   s.files = `git ls-files`.split("\n")
   s.executables = `git ls-files`.split("\n").map { |f| f =~ /^bin\/(.*)/ ? $1 : nil }.compact

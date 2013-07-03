@@ -8,7 +8,7 @@ end
 
 begin
   require 'mongoid'
-  Mongoid.load!(File.expand_path('../../../config/mongoid.yml', __FILE__), :test)
+  Mongoid.load!(File.join(Tenacity.root, '/config/mongoid.yml'), :test)
 rescue LoadError
   puts 'WARNING:  Mongoid could not be loaded.  Skipping tests.'
 end
