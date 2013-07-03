@@ -130,7 +130,7 @@ module Tenacity
         end
       end
 
-      path.inject(Object) { |ns, name| ns.const_get(name) }
+      path.inject(Object) { |ns, name| debugger; ns.const_get(name) }
     end
 
     def unqualified_class_name(clazz)

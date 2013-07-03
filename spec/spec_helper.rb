@@ -1,4 +1,5 @@
 require 'tenacity' # and any other gems you need
+require 'mongoid'
 require 'factory_girl'
 require 'active_record'
 require 'database_cleaner'
