@@ -12,4 +12,10 @@ ActiveRecord::Schema.define version: 0 do
     t.string :last_name
     t.integer :firm_id
   end
+
+  create_table :comments, force: true do |t|
+    t.string :comment
+    t.string :commentable_id
+    t.string :commentable_type
+  end
 end

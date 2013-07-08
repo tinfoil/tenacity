@@ -1,35 +1,6 @@
 module Tenacity
   module OrmExt
-    # Tenacity relationships on Mongoid objects require no special keys
-    # defined on the object.  Tenacity will define the keys that it needs
-    # to support the relationships.  Take the following class for example:
-    #
-    #   class Car
-    #     include Mongoid::Document
-    #     include Tenacity
-    #
-    #     t_has_many    :wheels
-    #     t_has_one     :dashboard
-    #     t_belongs_to  :driver
-    #   end
-    #
-    # == t_belongs_to
-    #
-    # The +t_belongs_to+ association will define a key named after the association.
-    # The example above will create a key named <tt>:driver_id</tt>
-    #
-    #
-    # == t_has_one
-    #
-    # The +t_has_one+ association will not define any new keys on the object, since
-    # the associated object holds the foreign key.
-    #
-    #
-    # == t_has_many
-    #
-    # The +t_has_many+ association will define a key named after the association.
-    # The example above will create a key named <tt>:wheels_ids</tt>
-    #
+
     module Mongoid
 
       def self.setup(model) #:nodoc:
@@ -104,8 +75,8 @@ module Tenacity
 
         def _t_initialize_belongs_to_association(association)
           unless self.respond_to?(association.foreign_key)
-            field association.foreign_key, :type => id_class_for(association)
-            field association.polymorphic_type, :type => String if association.polymorphic?
+            field association.foreign_key, type: id_class_for(association)
+            field association.polymorphic_type, type: String if association.polymorphic?
             after_destroy { |record| record._t_cleanup_belongs_to_association(association) }
           end
         end

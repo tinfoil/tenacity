@@ -25,9 +25,16 @@ module Tenacity
         if self.id.nil?
           []
         else
+          primary_key = self.class.respond_to?(:primary_key) ? self.class.primary_key.to_sym : :id
           foreign_key = association.foreign_key(self.class)
           associate_id = self.class._t_serialize_ids(self.id, association)
-          ids = association.associate_class._t_find_all_ids_by_associate(foreign_key, associate_id)
+          if association.polymorphic?
+            # Find all matches by id and then narrow down to ensure the results are of the correct polymorphic type
+            clazz = association.associate_class
+            ids = clazz._t_find_all_by_associate(foreign_key, associate_id)._t_find_all_by_associate(association.polymorphic_type, self.class.name).map(&primary_key)
+          else
+            ids = association.associate_class._t_find_all_ids_by_associate(foreign_key, associate_id)
+          end
           self.class._t_serialize_ids(ids, association)
         end
       end

@@ -1,38 +1,6 @@
 module Tenacity
   module OrmExt
-    # Tenacity relationships on ActiveRecord objects require that certain columns
-    # exist on the associated table. Take the following class for example:
-    #
-    #   class Car < ActiveRecord::Base
-    #     include Tenacity
-    #
-    #     t_has_many    :wheels
-    #     t_has_one     :dashboard
-    #     t_belongs_to  :driver
-    #   end
-    #
-    #
-    # == t_belongs_to
-    #
-    # The +t_belongs_to+ association requires that a property exist in the table
-    # to hold the id of the assoicated object.
-    #
-    #   create_table :cars do |t|
-    #     t.string :driver_id
-    #   end
-    #
-    #
-    # == t_has_one
-    #
-    # The +t_has_one+ association requires no special column in the table, since
-    # the associated object holds the foreign key.
-    #
-    #
-    # == t_has_many
-    #
-    # The +t_has_many+ association requires nothing special, as the associates
-    # are looked up using the associate class.
-    #
+
     module ActiveRecord
 
       def self.setup(model)
@@ -62,15 +30,15 @@ module Tenacity
 
         def _t_find_bulk(ids)
           return [] if ids.nil? || ids.empty?
-          find(:all, :conditions => ['id in (?)', _t_serialize_ids(ids)])
+          where('id in (?)', _t_serialize_ids(ids))
         end
 
         def _t_find_first_by_associate(property, id)
-          find(:first, :conditions => ["#{property} = ?", _t_serialize(id)])
+          where("#{property} = ?", _t_serialize(id)).first
         end
 
         def _t_find_all_by_associate(property, id)
-          find(:all, :conditions => ["#{property} = ?", _t_serialize(id)])
+          where("#{property} = ?", _t_serialize(id))
         end
 
         def _t_find_all_ids_by_associate(property, id)
