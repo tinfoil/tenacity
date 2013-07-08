@@ -12,7 +12,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner[:active_record].strategy = :transaction
-    DatabaseCleaner[:mongoid, {connection: Mongoid.sessions["default"]["database"].to_sym}].strategy = :truncation
+    DatabaseCleaner[:mongoid, {connection: Mongoid.sessions['default']['database'].to_sym}].strategy = :truncation
     DatabaseCleaner.start
   end
 
