@@ -11,7 +11,7 @@ much the same way, supporting many of the same options.
 ### Install
 ```ruby
 # In Gemfile
-gem 'tenacity', git: 'git@github.com:market76/tenacity.git', branch: 'master'
+gem 'tenacity', git: 'git@github.com:jwg2s/tenacity.git', branch: 'develop'
 ```
 
 ### Example
