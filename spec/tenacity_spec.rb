@@ -28,7 +28,6 @@ describe Tenacity do
 
     it 'returns proper polymorphic results' do
       firm.comments.count.should be(5)
-      firm.comments.count.should be(5)
     end
   end
 

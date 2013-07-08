@@ -29,7 +29,7 @@ module Tenacity
     # Should the associated object be saved when the parent object is saved?
     attr_reader :autosave
 
-    # The interface this association is reffered to as
+    # The interface this association is referred to as
     attr_reader :as
 
     # Is this association a polymorphic association?
@@ -62,7 +62,7 @@ module Tenacity
 
     # The name of the association
     def name
-      @as.nil? ? @name : @as
+      @name
     end
 
     # Get the associated class
@@ -99,7 +99,8 @@ module Tenacity
 
     # The name of the property that stores the polymorphic type (for polymorphic associations)
     def polymorphic_type
-      (name.to_s + '_type').to_sym
+      type = as.present? ? as : name
+      (type.to_s + '_type').to_sym
     end
 
     # Are foreign key constraints enabled for this association?
