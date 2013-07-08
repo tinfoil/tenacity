@@ -25,9 +25,16 @@ module Tenacity
         if self.id.nil?
           []
         else
+          primary_key = self.class.respond_to?(:primary_key) ? self.class.primary_key.to_sym : :id
           foreign_key = association.foreign_key(self.class)
           associate_id = self.class._t_serialize_ids(self.id, association)
-          ids = association.associate_class._t_find_all_ids_by_associate(foreign_key, associate_id)
+          if association.polymorphic?
+            # Find all matches by id and then narrow down to ensure the results are of the correct polymorphic type
+            clazz = association.associate_class
+            ids = clazz._t_find_all_by_associate(foreign_key, associate_id)._t_find_all_by_associate(association.polymorphic_type, self.class.name).map(&primary_key)
+          else
+            ids = association.associate_class._t_find_all_ids_by_associate(foreign_key, associate_id)
+          end
           self.class._t_serialize_ids(ids, association)
         end
       end
@@ -64,7 +71,7 @@ module Tenacity
 
       def prune_associate_ids(association, associate_ids)
         if association.limit || association.offset
-          sorted_ids = associate_ids.sort { |a,b| a <=> b }
+          sorted_ids = associate_ids.sort { |a, b| a <=> b }
 
           limit = association.limit || associate_ids.size
           offset = association.offset || 0
@@ -103,7 +110,7 @@ module Tenacity
 
           old_associates = get_current_associates(record, association)
 
-          # Some ORM libraries (CouchRest, ActiveRecord, etc) return a proxy in
+          # Some ORM libraries (ActiveRecord, etc) return a proxy in
           # place of the associated objects.  The actual associated objects
           # will be fetched the first time they are needed.  So, force them to
           # be fetched here, before we clear them out in the database.
@@ -137,7 +144,7 @@ module Tenacity
         def destroy_orphaned_associates(association, old_associates, associates)
           if association.dependent == :destroy || association.dependent == :delete_all
             issue_callbacks = (association.dependent == :destroy)
-            (old_associates.map{|a| a.id} - associates.map{|a| a.id}).each do |associate_id|
+            (old_associates.map { |a| a.id } - associates.map { |a| a.id }).each do |associate_id|
               association.associate_class._t_delete([_t_serialize(associate_id)], issue_callbacks)
             end
           end

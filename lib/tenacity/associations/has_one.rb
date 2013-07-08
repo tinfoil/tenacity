@@ -27,7 +27,7 @@ module Tenacity
       def set_has_one_associate(association, associate)
         associate.send "#{association.foreign_key(self.class)}=", _t_serialize(self.id, association)
         associate.send "#{association.polymorphic_type}=", self.class.to_s if association.polymorphic?
-        associate._t_save_if_dirty unless association.autosave == false
+        associate._t_save_if_dirty unless !association.autosave
         associate
       end
 
