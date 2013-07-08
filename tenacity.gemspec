@@ -14,26 +14,26 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = 'tenacity'
 
-  s.required_rubygems_version = '>= 1.3.6'
+  s.required_rubygems_version = '~> 2.0'
 
-  s.add_runtime_dependency 'activesupport', '>= 2.3'
+  s.add_runtime_dependency 'activesupport', '>= 3.2'
 
-  s.add_development_dependency 'bundler', '>= 1.0.0'
-  s.add_development_dependency 'rake', '>= 0.8.7'
-  s.add_development_dependency 'yard', '~> 0.6.4'
+  s.add_development_dependency 'bundler', '>= 1.3.5'
+  s.add_development_dependency 'rake', '>= 10.1.0'
+  s.add_development_dependency 'yard', '>= 0.8'
 
   # Relational DBs
   s.add_development_dependency 'sqlite3', '~> 1.3'
-  s.add_development_dependency 'activerecord', '~> 3.1'
+  s.add_development_dependency 'activerecord', '~> 3.2'
 
   # MongoDB
-  s.add_development_dependency 'mongo', '~> 1.6.2'
-  s.add_development_dependency 'bson_ext', '~> 1.6.2'
-  s.add_development_dependency 'mongoid', '~> 3.0.0'
+  s.add_development_dependency 'mongo', '~> 1.9.0'
+  s.add_development_dependency 'bson_ext', '~> 1.9.0'
+  s.add_development_dependency 'mongoid', '~> 3.1.4'
 
   # Testing
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'factory_girl', '~> 4.0'
+  s.add_development_dependency 'factory_girl'
   s.add_development_dependency 'database_cleaner'
 
   s.files = `git ls-files`.split("\n")
