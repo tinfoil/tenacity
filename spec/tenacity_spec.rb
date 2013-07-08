@@ -7,7 +7,7 @@ describe Tenacity do
 
   context 'when associating two ActiveRecord objects' do
     it 'returns proper has_many results' do
-      Firm.find(firm.id).employees.count.should be(5)
+      firm.employees.count.should be(5)
     end
 
     it 'returns proper belongs_to results' do
@@ -15,11 +15,25 @@ describe Tenacity do
         employee.firm.id == firm.id
       end
     end
+
+    it 'destroys the associated objects correctly' do
+      firm.employees.count.should > 0
+      firm.employees.destroy_all
+      firm.employees.count.should be(0)
+      Employee.all.count.should be(0)
+    end
   end
 
   context 'when associating an ActiveRecord object and a Mongoid object' do
     it 'returns proper has_many results' do
-      Firm.find(firm.id).documents.count.should be(5)
+      firm.documents.count.should be(5)
+    end
+
+    it 'destroys the associated objects correctly' do
+      firm.documents.count.should > 0
+      firm.documents.destroy_all
+      firm.documents.count.should be(0)
+      Document.where(firm_id: firm.id).count.should be(0)
     end
   end
 end
