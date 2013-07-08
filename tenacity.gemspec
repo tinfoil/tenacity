@@ -6,9 +6,9 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
   s.version = Tenacity::VERSION
   s.platform = Gem::Platform::RUBY
-  s.authors = ['John Gerhardt']
+  s.authors = ['John Gerhardt', 'John Wood']
   s.email = %w(john@market76.com)
-  s.homepage = 'http://github.com/jwg2s/tenacity'
+  s.homepage = 'http://github.com/market76/tenacity'
   s.summary = 'A database client independent way of specifying simple relationships between models backed by different databases.'
   s.description = 'Tenacity provides a database client independent way of specifying simple relationships between models backed by different databases.'
 

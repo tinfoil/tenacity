@@ -1,6 +1,6 @@
 #Tenacity
 
-[![Build Status](https://travis-ci.org/jwg2s/tenacity.png?branch=feature/upgrade-mongoid-3.1)](https://travis-ci.org/jwg2s/tenacity)
+[![Build Status](https://travis-ci.org/market76/tenacity.png?branch=develop)](https://travis-ci.org/market76/tenacity)
 
 A database client independent way of managing relationships between models
 backed by different databases.
