@@ -49,5 +49,9 @@ describe Tenacity do
       document_with_comments.comments.count.should be(0)
       firm.comments.count.should > 0
     end
+
+    it 'returns proper belongs_to results' do
+      document_with_comments.firm.id.should == firm.id
+    end
   end
 end

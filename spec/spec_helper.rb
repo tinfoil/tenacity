@@ -4,9 +4,10 @@ require 'factory_girl'
 require 'active_record'
 require 'database_cleaner'
 
+Dir[File.join(Tenacity.root, 'spec/classes/active_record', '*.rb')].each { |file| autoload(file[file.rindex('/') + 1..-4].camelcase, file) }
+Dir[File.join(Tenacity.root, 'spec/classes/mongoid', '*.rb')].each { |file| autoload(file[file.rindex('/') + 1..-4].camelcase, file) }
 Dir[File.join(Tenacity.root, 'spec/support/**/*.rb')].each { |f| require f }
 Dir[File.join(Tenacity.root, 'spec/factories/**/*.rb')].each { |f| require f }
-Dir[File.join(Tenacity.root, 'spec/classes', '*.rb')].each { |file| autoload(file[file.rindex('/') + 1..-4].camelcase, file) }
 
 RSpec.configure do |config|
 
