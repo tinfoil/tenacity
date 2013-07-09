@@ -130,7 +130,6 @@ module Tenacity
           from_root.delete_at(-1)
         end
       end
-
       path.inject(Object) { |ns, name| ns.const_get(name) }
     end
 

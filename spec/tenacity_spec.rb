@@ -49,5 +49,15 @@ describe Tenacity do
       document_with_comments.comments.count.should be(0)
       firm.comments.count.should > 0
     end
+
+    it 'destroys dependent objects' do
+      document_id = document_with_comments.id.to_s
+      document_with_comments.destroy
+      Comment.where(commentable_id: document_id, commentable_type: 'Document').count.should be(0)
+    end
+
+    it 'returns proper belongs_to results' do
+      document_with_comments.firm.id.should == firm.id
+    end
   end
 end
