@@ -1,3 +1,5 @@
+require File.join(Tenacity.root, 'spec/support/classes/firm.rb')
+
 class Document
   include Mongoid::Document
   include Tenacity
