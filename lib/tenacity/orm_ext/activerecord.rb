@@ -57,20 +57,21 @@ module Tenacity
         end
 
         def _t_find(id)
-          find_by_id(_t_serialize(id))
+          find_by(id: _t_serialize(id))
         end
 
         def _t_find_bulk(ids)
           return [] if ids.nil? || ids.empty?
-          find(:all, :conditions => ["id in (?)", _t_serialize_ids(ids)])
+          where("id in (?)", _t_serialize_ids(ids)).to_a
+
         end
 
         def _t_find_first_by_associate(property, id)
-          find(:first, :conditions => ["#{property} = ?", _t_serialize(id)])
+          where("#{property} = ?", _t_serialize(id)).first
         end
 
         def _t_find_all_by_associate(property, id)
-          find(:all, :conditions => ["#{property} = ?", _t_serialize(id)])
+          where("#{property} = ?", _t_serialize(id)).to_a
         end
 
         def _t_find_all_ids_by_associate(property, id)
