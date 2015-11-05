@@ -24,12 +24,10 @@ Gem::Specification.new do |s|
 
   # Relational DBs
   s.add_development_dependency 'sqlite3', '~> 1.3'
-  s.add_development_dependency 'activerecord', '~> 3.2'
+  s.add_development_dependency 'activerecord', '~> 4.0'
 
   # MongoDB
-  s.add_development_dependency 'mongo', '~> 1.9.0'
-  s.add_development_dependency 'bson_ext', '~> 1.9.0'
-  s.add_development_dependency 'mongoid', '~> 3.1.4'
+  s.add_development_dependency 'mongoid', '~> 4.0'
 
   # Testing
   s.add_development_dependency 'rspec'
@@ -40,4 +38,3 @@ Gem::Specification.new do |s|
   s.executables = `git ls-files`.split("\n").map { |f| f =~ /^bin\/(.*)/ ? $1 : nil }.compact
   s.require_path = 'lib'
 end
-
