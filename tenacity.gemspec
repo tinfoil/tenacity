@@ -1,56 +1,43 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path("../lib/tenacity/version", __FILE__)
+require File.expand_path('../lib/tenacity/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name        = "tenacity"
-  s.license     = "MIT"
-  s.version     = Tenacity::VERSION
-  s.platform    = Gem::Platform::RUBY
-  s.authors     = ["John Wood"]
-  s.email       = ["john@johnpwood.net"]
-  s.homepage    = "http://github.com/jwood/tenacity"
-  s.summary     = %Q{A database client independent way of specifying simple relationships between models backed by different databases.}
-  s.description = %Q{Tenacity provides a database client independent way of specifying simple relationships between models backed by different databases.}
+  s.name = 'tenacity'
+  s.license = 'MIT'
+  s.version = Tenacity::VERSION
+  s.platform = Gem::Platform::RUBY
+  s.authors = ['John Gerhardt', 'John Wood']
+  s.email = %w(john@market76.com)
+  s.homepage = 'http://github.com/market76/tenacity'
+  s.summary = 'A database client independent way of specifying simple relationships between models backed by different databases.'
+  s.description = 'Tenacity provides a database client independent way of specifying simple relationships between models backed by different databases.'
 
-  s.rubyforge_project = "tenacity"
+  s.rubyforge_project = 'tenacity'
 
-  s.required_rubygems_version = ">= 1.3.6"
+  s.required_rubygems_version = '~> 2.0'
 
-  s.add_runtime_dependency "activesupport", ">= 2.3"
+  s.add_runtime_dependency 'activesupport', '>= 3.2'
 
-  s.add_development_dependency "bundler", ">= 1.0.0"
-  s.add_development_dependency "rake", ">= 0.8.7"
-  s.add_development_dependency "rcov", "~> 0.9.9"
-  s.add_development_dependency "shoulda", "~> 2.11.3"
-  s.add_development_dependency "mocha", "~> 0.9.10"
-  s.add_development_dependency "yard", "~> 0.6.4"
+  s.add_development_dependency 'bundler', '>= 1.3.5'
+  s.add_development_dependency 'rake', '>= 10.1.0'
+  s.add_development_dependency 'yard', '>= 0.8'
 
   # Relational DBs
-  s.add_development_dependency "sqlite3", "~> 1.3"
-  s.add_development_dependency "activerecord", "~> 3.1"
-  s.add_development_dependency "datamapper", "~> 1.0.2"
-  s.add_development_dependency "dm-sqlite-adapter", "~> 1.0.2"
-  s.add_development_dependency "sequel", "~> 3.19.0"
+  s.add_development_dependency 'sqlite3', '~> 1.3'
+  s.add_development_dependency 'activerecord', '~> 3.2'
 
   # MongoDB
-  s.add_development_dependency "mongo_mapper", "~> 0.12.0"
-  s.add_development_dependency "mongo", "~> 1.6.2"
-  s.add_development_dependency "bson_ext", "~> 1.6.2"
-  s.add_development_dependency "mongoid", "~> 3.0"
+  s.add_development_dependency 'mongo', '~> 1.9.0'
+  s.add_development_dependency 'bson_ext', '~> 1.9.0'
+  s.add_development_dependency 'mongoid', '~> 3.1.4'
 
-  # CouchDB
-  s.add_development_dependency "couchrest", "~> 1.1.3"
-  s.add_development_dependency "couchrest_model", "~> 1.1.2"
+  # Testing
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'factory_girl'
+  s.add_development_dependency 'database_cleaner'
 
-  # Riak
-  #s.add_development_dependency "ripple", "~> 0.9.5"
-
-  # Multiple
-  #s.add_development_dependency "toystore", "~> 0.12.0"
-  #s.add_development_dependency "adapter-mongo", "~> 0.7.0"
-
-  s.files        = `git ls-files`.split("\n")
-  s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
+  s.files = `git ls-files`.split("\n")
+  s.executables = `git ls-files`.split("\n").map { |f| f =~ /^bin\/(.*)/ ? $1 : nil }.compact
   s.require_path = 'lib'
 end
 
