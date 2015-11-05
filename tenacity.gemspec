@@ -17,19 +17,12 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '~> 2.0'
 
   s.add_runtime_dependency 'activesupport', '>= 3.2'
+  s.add_runtime_dependency 'activerecord', '~> 4.0'
+  s.add_runtime_dependency 'mongoid', '~> 4.0'
 
-  s.add_development_dependency 'bundler', '>= 1.3.5'
-  s.add_development_dependency 'rake', '>= 10.1.0'
-  s.add_development_dependency 'yard', '>= 0.8'
-
-  # Relational DBs
-  s.add_development_dependency 'sqlite3', '~> 1.3'
-  s.add_development_dependency 'activerecord', '~> 4.0'
-
-  # MongoDB
-  s.add_development_dependency 'mongoid', '~> 4.0'
-
-  # Testing
+  s.add_development_dependency 'bundler'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'factory_girl'
   s.add_development_dependency 'database_cleaner'
