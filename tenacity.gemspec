@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'activesupport', '>= 3.2'
   s.add_runtime_dependency 'activerecord', '~> 4.0'
-  s.add_runtime_dependency 'mongoid', '~> 4.0'
+  s.add_runtime_dependency 'mongoid', ['>= 4', '< 6']
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'rake'
