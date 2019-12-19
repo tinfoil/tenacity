@@ -419,7 +419,7 @@ module Tenacity
         object_id.to_s
       elsif object_id.nil?
         nil
-      elsif [Fixnum, Integer].include?(object_id.class)
+      elsif (1.class != Integer && object_id.class == Fixnum) || object_id.class == Integer
         object_id
       else
         object_id.to_s
