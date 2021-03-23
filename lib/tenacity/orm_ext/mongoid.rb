@@ -29,7 +29,11 @@ module Tenacity
         def _t_find_bulk(ids)
           if respond_to?(:where)
             ids = [ids].flatten
-            docs = where(:_id.in => _t_serialize_ids(ids)).all
+            if self.respond_to?(:in)
+              docs = self.in(:_id => _t_serialize_ids(ids)).all
+            else
+              docs = self.where(:_id.in => _t_serialize_ids(ids)).all
+            end
           else
             docs = find(_t_serialize_ids(ids))
           end
